@@ -1,1 +1,1 @@
-# [Android FOSS](https://android-foss.github.io) : A list of Free and Open Source Software (FOSS) for Android – saving Freedom and Privacy.
+# [Android FOSS](https://sofyan232.github.io/) : A list of Free and Open Source Software (FOSS) for Android – saving Freedom and Privacy.
