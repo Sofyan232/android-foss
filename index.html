@@ -402,6 +402,16 @@
         h3 {
             scroll-margin-top: var(--scroll-offset);
         }
+		.ad-placeholder {
+            width: 100%; background: repeating-linear-gradient(45deg, rgba(128,128,128,0.05), rgba(128,128,128,0.05) 10px, rgba(128,128,128,0.1) 10px, rgba(128,128,128,0.1) 20px);
+            border: 1px dashed var(--border); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text); opacity: 0.6; font-size: 0.75rem; letter-spacing: 1.5px;
+            position: relative;
+        }
+        .ad-placeholder::before { content: 'SPONSORED'; position: absolute; top: 5px; left: 50%; transform: translateX(-50%); font-size: 9px; font-weight: 700; opacity: 0.7; }
+        .h-90 { height: 90px; } .h-250 { height: 250px; } .h-600 { height: 600px; }
+
 
         /* Tables & Lists */
         .data-table {
@@ -821,15 +831,6 @@
     </div>
 
     <div class="container">
-        <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2674436118918544"
-     data-ad-slot="9501441339"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
         <div class="intro-flex">
             <div class="text">
                 A list of Free and Open Source Software (FOSS) for Android – saving Freedom and Privacy.
@@ -839,7 +840,7 @@
                 <div class="image-wrapper" id="heroWrapper">
                     <div class="shine"></div>
                     <img src="https://www.idnstart.com/media/images/2024/01/1165a6ef831cb08.gif?location=1&width=&height=&quality=90&fit=1"
-                        alt="Android FOSS Hero" id="heroImg">
+                        alt="A list of Free and Open Source Software (FOSS) for Android – saving Freedom and Privacy" title="A list of Free and Open Source Software (FOSS) for Android – saving Freedom and Privacy" id="heroImg">
                 </div>
             </div>
         </div>
@@ -851,6 +852,19 @@
         <footer style="text-align: center; margin-top: 50px; opacity: 0.7; padding-bottom: 80px;">
             <p>&copy; 2026 Android FOSS Repository.</p>
         </footer>
+		<div id="sticky-ad" style="position:fixed; bottom:0; left:0; width:100%; z-index:9999; background:var(--glass); backdrop-filter:blur(20px); border-top:1px solid var(--border); padding:10px; display:flex; justify-content:center;">
+        <button onclick="document.getElementById('sticky-ad').style.display='none'" style="position:absolute; top:-15px; right:10px; width:30px; height:30px; border-radius:50%; background:var(--accent); color:white; border:none; cursor:pointer;">&times;</button>
+        <div class="ad-placeholder h-90" style="width:728px; border:none; background:transparent;">ANCHOR AD (STICKY)</div>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2674436118918544"
+     data-ad-slot="9501441339"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
     </div>
 
     <button id="scrollToTopBtn" aria-label="Scroll to Top">
@@ -2340,4 +2354,5 @@ A list of Free and Open Source Software *(FOSS)* for Android – saving *Freedom
 
 
 </html>
+
 
