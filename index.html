@@ -230,22 +230,65 @@
             gap: 12px;
         }
 
-        #searchBox {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--glass-border);
-            padding: 8px 15px;
-            border-radius: 20px;
-            color: var(--text-color);
-            outline: none;
-            width: 150px;
-            transition: width 0.3s, background 0.3s;
-            font-family: var(--font-main);
-        }
+        /* Container Pencarian */
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
 
-        #searchBox:focus {
-            width: 220px;
-            background: rgba(255, 255, 255, 0.2);
-        }
+/* Tombol Ikon Pencarian */
+.search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    padding: 8px;
+    border-radius: 50%;
+    transition: 0.3s;
+    z-index: 2; /* Agar ikon selalu di atas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+}
+
+/* Kolom Input (Hidden by Default) */
+#searchBox {
+    position: absolute;
+    right: 0; /* Muncul dari kanan ke kiri */
+    width: 0; /* Lebar 0 agar tidak terlihat */
+    opacity: 0;
+    padding: 8px 0; /* Padding 0 agar benar-benar hilang */
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    color: var(--text-color);
+    outline: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Animasi smooth */
+    pointer-events: none; /* Agar tidak bisa diklik saat tersembunyi */
+    font-family: var(--font-main);
+}
+
+/* State: Saat Aktif (Fokus atau Ada Isi) */
+/* Kita gunakan class .active dari JS atau pseudo-class :focus */
+.search-container.active #searchBox,
+#searchBox:focus,
+#searchBox:not(:placeholder-shown) {
+    width: 220px; /* Lebar saat terbuka */
+    opacity: 1;
+    padding: 8px 40px 8px 15px; /* Padding kanan besar agar teks tidak menabrak ikon */
+    pointer-events: auto;
+    right: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
 
         .icon-btn {
             background: none;
@@ -600,6 +643,7 @@
 
         /* Scroll Top Button */
         #scrollToTopBtn {
+			margin-bottom: 101px;
             position: fixed;
             bottom: 30px;
             right: 30px;
@@ -816,7 +860,15 @@
         </nav>
 
         <div class="controls">
-            <input type="text" id="searchBox" placeholder="Search apps...">
+            <div class="search-container" id="searchContainer">
+        <input type="text" id="searchBox" placeholder="Search apps...">
+        <button class="search-btn" id="searchTrigger" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+    </div>
             <button class="icon-btn" id="viewToggleBtn" aria-label="Toggle Grid/List">⊞</button>
             <button class="icon-btn" id="themeBtn" aria-label="Toggle Theme">☀️</button>
             <div class="hamburger" id="hamburgerBtn">
@@ -2191,6 +2243,34 @@ A list of Free and Open Source Software *(FOSS)* for Android – saving *Freedom
 
         // --- 5. INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
+			// --- LOGIC PENCARIAN (IKON KLIK) ---
+const searchTrigger = document.getElementById('searchTrigger');
+const searchInput = document.getElementById('searchBox');
+const searchContainer = document.getElementById('searchContainer');
+
+searchTrigger.addEventListener('click', () => {
+    // Beri fokus ke input agar CSS width melebar
+    searchInput.focus();
+    
+    // (Opsional) Toggle class jika ingin manual control
+    searchContainer.classList.add('active');
+});
+
+// Tutup jika klik di luar atau tekan Escape
+searchInput.addEventListener('blur', () => {
+    // Jika input kosong, hilangkan class active agar menutup
+    if(searchInput.value === '') {
+        searchContainer.classList.remove('active');
+    }
+});
+
+searchInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') {
+        searchInput.value = '';
+        searchInput.blur();
+        searchContainer.classList.remove('active');
+    }
+});
             // Theme
             // Toggle View Grid/List
             const viewBtn = document.getElementById('viewToggleBtn');
@@ -2354,5 +2434,6 @@ A list of Free and Open Source Software *(FOSS)* for Android – saving *Freedom
 
 
 </html>
+
 
 
